@@ -40,7 +40,7 @@ npm start
 // to install dependencies
 npm install
 // to run api
-node app.js
+node server.js
 ```
 
 ### App Server
