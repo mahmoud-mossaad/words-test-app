@@ -1,14 +1,12 @@
 "use strict";
-
+//importing the words
 const data = require("./TestData.json");
 
+// importing express, body parser to parse data from requests and cors to allow cors
 var express = require("express");
 const cors = require("cors");
-
 const bodyParser = require("body-parser");
-
 var app = (module.exports = express());
-
 var corsOptions = {
   origin: "http://localhost:4201",
   optionsSuccessStatus: 200, // For legacy browser support
@@ -17,6 +15,8 @@ var corsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: false }));
 
+//this function is used to generate random 10 words from a given list of words
+//also the returned 10 words must have 1 noun, 1 adj, 1 verb and 1 adverb
 function randomizeWords(data) {
   const returnedData = [];
   const selectedRandomId = [];
@@ -55,6 +55,7 @@ function randomizeWords(data) {
   return returnedDataEdited;
 }
 
+//This function is used to return a rank when a score is given
 function getRank(score) {
   const scoresList = data.scoresList;
   scoresList.sort();
@@ -67,10 +68,13 @@ function getRank(score) {
 
   return ((count / scoresList.length) * 100).toFixed(2);
 }
+
 app.get("/", function (req, res) {
   console.log("Hello there");
   res.send(data);
 });
+
+//this route handles get request to get the words
 app.get("/wordsList", function (req, res) {
   const wordsList = data.wordList;
 
@@ -78,7 +82,7 @@ app.get("/wordsList", function (req, res) {
   //console.log(adj, noun, verb, adverb);
   res.send(randomizeWords(wordsList));
 });
-
+//this route handles post requests to get the rank given the score
 app.post("/rank", function (req, res) {
   const score = JSON.parse(JSON.stringify(req.body)).score;
   console.log(score);
@@ -86,7 +90,7 @@ app.post("/rank", function (req, res) {
   console.log(rank);
   res.send(rank);
 });
-/* istanbul ignore next */
+//initializing the app
 if (!module.parent) {
   app.listen(3080);
   console.log("Express started on port 3080");
