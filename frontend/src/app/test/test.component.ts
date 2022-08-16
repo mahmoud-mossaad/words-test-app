@@ -4,13 +4,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatRadioChange } from '@angular/material/radio';
 import { afterMain } from '@popperjs/core';
 
+//this interface for the words
 interface word {
   id: number;
   word: string;
   pos: string;
-  answeredPos: string 
 }
 
+//this is an interface for the answers given
 interface answer {
   id: number;
   pos: string
@@ -34,20 +35,25 @@ export class TestComponent implements OnInit {
   poss: string[] = ['adjective', 'noun', 'verb', 'adverb'];
 
   constructor(config: NgbCarouselConfig, private http: HttpClient) {
+    //configuration of carousel for the swipe feature inside the test
     config.interval = 2000;
     config.keyboard = true;
     config.pauseOnHover = true;
   }
   ngOnInit(): void {
+    //whenever the component is render we go and fetch the wordslist from the server
     this.http.get<any>('http://127.0.0.1:3080/wordsList', httpOptions).subscribe(data => {
             this.words = data
             console.log(this.words)
         })
 }
 
+  //this function is to color the right and wrong answers
 getColor(answer: string, pos: string): string{
   return answer == pos ? "green" : "red";
 }
+  
+  //this function handles the answers given by the user
   onEditAnswers(index: number, value: string){
     let idx = 0
     let found = false;
@@ -72,7 +78,7 @@ else{
   this.answers.push({id: index, pos:value})
 }
 }
-
+//this function handles the submited score to the server and gets the rank to be able to render it
   onSubmit(){
     let rightAnswers = 0
     console.log(this.answers)
