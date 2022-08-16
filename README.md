@@ -44,7 +44,7 @@ node server.js
 ```
 
 ### App Server
-The server is run by default at http://localhost:3080
+The server is run by default at http://127.0.0.1:3080
 
 ### Client App
-The app is run by default at http://localhost:4201
+The app is run by default at http://127.0.0.1:4201
