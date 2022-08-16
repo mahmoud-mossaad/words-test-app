@@ -8,7 +8,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 var app = (module.exports = express());
 var corsOptions = {
-  origin: "http://localhost:4201",
+  origin: "http://127.0.0.1:4201",
   optionsSuccessStatus: 200, // For legacy browser support
 };
 
