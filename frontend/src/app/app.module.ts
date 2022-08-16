@@ -1,3 +1,5 @@
+//I'm using angular material for UI templates and styling so I'm importing all the needed dependencies below
+//Also I'm importin httpclientmodule to handle requests to the back-end
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
@@ -17,6 +19,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import { FormsModule } from '@angular/forms';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
+//Setting up the routes
 const routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'test', component: TestComponent }
