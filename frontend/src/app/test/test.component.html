@@ -1,0 +1,69 @@
+<div style="height: 100vh;
+display:flex;
+align-items:center;
+justify-content:center; ">
+    <mat-card *ngIf="!finalScore" class="example-card" style="height: 400px; width: 60%; align-items: center; justify-content: center; background-color: darksalmon;">
+        <mat-card-subtitle style="color: aliceblue;">Please select the right answer</mat-card-subtitle>
+        <mat-card-content style="height: 400px; width: 50%; align-items: center; justify-content: center;">
+            <ngb-carousel style="height: 350px; width: 200%; align-items: center; justify-content: center;" [animation]="false" [interval]="0" [wrap]="false">
+                <ng-template   ngbSlide *ngFor="let word of words; index as i;">
+                    <div style="text-align: center;">
+                        <p style="font-size: large; color: aliceblue;"> What is the POS of this word "{{word.word}}"</p>
+                    </div>
+                    <div style="height: 60px; align-items: center; justify-content: center; text-align: center;">
+                    <div style="height: 100px">
+                    <mat-button-toggle-group #group="matButtonToggleGroup" (change)="onEditAnswers(word.id, group.value)">
+                      <mat-button-toggle value="adjective" aria-label="Text align center">
+                        Adjective
+                      </mat-button-toggle>
+                      <mat-button-toggle value="noun" aria-label="Text align center">
+                        Noun
+                      </mat-button-toggle>
+                      <mat-button-toggle value="verb" aria-label="Text align center">
+                        Verb
+                      </mat-button-toggle>
+                      <mat-button-toggle value="adverb" aria-label="Text align center">
+                        Adverb
+                      </mat-button-toggle>
+                    </mat-button-toggle-group>
+                  </div>
+                    <div style="height: 200px;" class="example-selected-value">Selected value: 
+                      <span [ngStyle]="{'color': getColor(group.value, word.pos)}">{{group.value}}</span>
+                    </div>
+                    </div>
+                  <div style="height: 200px; text-align: center;">
+                    <p>{{answers.length}}/{{words.length}}</p>
+                    <mat-progress-bar mode="determinate" [value]=(i+1)*10></mat-progress-bar>
+                  </div>
+                </ng-template>
+              </ngb-carousel>
+        </mat-card-content>
+
+        <button
+          mat-stroked-button
+          style="width: 15em; font-size: large;"
+          color="accent"
+          [disabled]="answers.length<10"
+          (click)="onSubmit()"
+          >
+          Submit
+        </button> 
+
+      </mat-card>
+      <mat-card *ngIf="finalScore" class="example-card" style="height: 400px; width: 60%; align-items: center; justify-content: center; background-color: darksalmon;">
+        <div style="text-align: center; height: 400px; font-size: large; color: aliceblue;">
+          <p>Your rank is {{rank}}</p>
+        </div>
+        <div style="text-align: center;">
+        <a href="/">
+          <button
+          mat-stroked-button
+          style="width: 15em; font-size: large;"
+          color="accent"
+          >
+           Retake the test
+          </button> 
+        </a>
+      </div>
+      </mat-card>
+</div>
